@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Ambika</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Navigation -->
+        <header class="navbar">
+            <div class="navbar-container">
+                <div class="navbar-brand">
+                    <h1>📊 Ambika</h1>
+                    <p>Billing & Inventory System</p>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li><a href="sales.html" class="nav-link">Sales</a></li>
+                    <li><a href="purchases.html" class="nav-link">Purchases</a></li>
+                    <li><a href="bills.html" class="nav-link">Bills</a></li>
+                    <li><a href="reports.html" class="nav-link">Reports</a></li>
+                    <li><a href="settings.html" class="nav-link active">Settings</a></li>
+                </ul>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-container">
+                <h2 class="page-title">⚙️ Settings</h2>
+
+                <div id="alertContainer" style="position: relative; margin-bottom: 20px;"></div>
+
+                <!-- Company Information -->
+                <form id="settingsForm" class="form-container">
+                    <h3 class="section-title">🏢 Company Information</h3>
+                    
+                    <div class="form-group">
+                        <label for="companyName">Company Name:</label>
+                        <input type="text" id="companyName" value="Ambika" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="companyGST">GST Number (Optional):</label>
+                        <input type="text" id="companyGST" placeholder="27AABCT1234A1ZZ">
+                    </div>
+                    <div class="form-group">
+                        <label for="companyAddress">Address:</label>
+                        <textarea id="companyAddress" placeholder="Company address for bills" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="companyPhone">Phone:</label>
+                        <input type="tel" id="companyPhone" placeholder="+91 XXXX-XXXX-XX">
+                    </div>
+                    <div class="form-group">
+                        <label for="companyEmail">Email:</label>
+                        <input type="email" id="companyEmail" placeholder="company@example.com">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">💾 Save Settings</button>
+                </form>
+
+                <!-- Data Management -->
+                <h3 class="section-title">📦 Data Management</h3>
+                <div class="form-container">
+                    <div class="form-group">
+                        <label>Import Data from File:</label>
+                        <input type="file" id="importFile" accept=".json" style="margin-bottom: 10px;">
+                        <button type="button" class="btn btn-secondary" onclick="importData()">📥 Import Data</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Export Your Data:</label>
+                        <button type="button" class="btn btn-secondary" onclick="exportData()">💾 Export JSON (Full Backup)</button>
+                        <button type="button" class="btn btn-secondary" onclick="exportCSV()">📊 Export CSV (Transactions)</button>
+                    </div>
+
+                    <div style="background-color: #e8f4f8; padding: 15px; border-radius: 5px; margin-top: 15px;">
+                        <h4 style="margin: 0 0 10px 0;">💡 Data Backup Tips:</h4>
+                        <ul style="margin: 0; padding-left: 20px; font-size: 13px;">
+                            <li>Export data regularly (weekly recommended)</li>
+                            <li>Keep backup files in a safe location</li>
+                            <li>Browser cache clear will delete your data - always have a backup</li>
+                            <li>Use JSON export for complete backup, CSV for spreadsheet analysis</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Danger Zone -->
+                <h3 class="section-title" style="color: var(--danger-color); margin-top: 40px;">⚠️ Danger Zone</h3>
+                <div class="form-container" style="border-left: 4px solid var(--danger-color);">
+                    <div class="form-group">
+                        <label style="color: var(--danger-color); font-weight: bold;">⛔ Clear All Data</label>
+                        <p style="font-size: 13px; color: #7f8c8d; margin: 10px 0;">
+                            This will permanently delete ALL your data including sales, purchases, bills, and settings. This action cannot be undone!
+                        </p>
+                        <button type="button" class="btn btn-danger" onclick="clearAllData()">🗑️ Clear All Data</button>
+                    </div>
+                </div>
+
+                <!-- Application Info -->
+                <h3 class="section-title">ℹ️ Application Information</h3>
+                <div class="form-container" style="background-color: #f0f2f5;">
+                    <div style="font-size: 13px; line-height: 1.8;">
+                        <p><strong>Application:</strong> Ambika Billing & Inventory System</p>
+                        <p><strong>Version:</strong> 2.0 (Multi-Page Edition)</p>
+                        <p><strong>Storage:</strong> Browser Local Storage (Offline Ready)</p>
+                        <p><strong>Data Format:</strong> JSON</p>
+                        <p><strong>Features:</strong> Sales, Purchases, Bills, Reports, GST Tracking</p>
+                        <p style="margin-top: 15px; color: #7f8c8d;">
+                            All data is stored locally on your device. No data is sent to any server. <br>
+                            Made for small businesses and freelancers. 🚀
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Ambika Billing System. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="../assets/js/app.js"></script>
+    <script>
+        // Form submission
+        document.getElementById('settingsForm').addEventListener('submit', function(e) {
+            saveSettings(e);
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSettings();
+        });
+    </script>
+</body>
+</html>

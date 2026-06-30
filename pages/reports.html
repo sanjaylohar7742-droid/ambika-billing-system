@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - Ambika</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Navigation -->
+      <header class="navbar">
+  <div class="navbar-container">
+
+    <div class="left-navbar">
+      <button class="menu-toggle" onclick="toggleMobileMenu()">☰</button>
+
+      <div class="navbar-brand">
+        <h1>Ambika</h1>
+        <p class="desktop-text">Billing & Inventory System</p>
+      </div>
+    </div>
+
+    <ul class="nav-menu" id="mobileMenu">
+      <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+      <li><a href="sales.html" class="nav-link">Sales</a></li>
+      <li><a href="purchases.html" class="nav-link">Purchases</a></li>
+      <li><a href="bills.html" class="nav-link">Bills</a></li>
+      <li><a href="reports.html" class="nav-link">Reports</a></li>
+      <li><a href="inventory.html" class="nav-link">Inventory</a></li>
+    </ul>
+
+    <div class="profile-menu">
+      <button class="profile-icon" onclick="toggleProfileMenu()">
+        <img
+  id="navbarProfileImage"
+  src=""
+  alt="Profile"
+  onclick="toggleProfileMenu(event)"
+>
+      </button>
+
+      <div id="profileDropdown" class="profile-dropdown"></div>
+    </div>
+
+  </div>
+</header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-container">
+                <h2 class="page-title">📊 Financial Reports</h2>
+
+                <div id="alertContainer" style="position: relative; margin-bottom: 20px;"></div>
+
+                <!-- Report Filters -->
+                <div class="report-filters">
+                    <select id="reportMonth">
+                        <option value="">All Months</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    <select id="reportYear"></select>
+                    <button class="btn btn-secondary" onclick="generateReport()">🔄 Generate Report</button>
+                </div>
+
+                <!-- Yearly Report -->
+                <h3 class="section-title">📈 Yearly Summary</h3>
+                <div style="overflow-x: auto;">
+                    <table id="yearlyReport" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Year</th>
+                                <th>Total Sales</th>
+                                <th>Total Purchases</th>
+                                <th>GST Collected</th>
+                                <th>Total Received</th>
+                                <th>Total Paid</th>
+                                <th>Net Profit</th>
+                            </tr>
+                        </thead>
+                        <tbody id="yearlyReportBody">
+                            <tr><td colspan="7" class="text-center">No data available</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Monthly Report -->
+                <h3 class="section-title">📅 Monthly Summary</h3>
+                <div style="overflow-x: auto;">
+                    <table id="monthlyReport" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Month</th>
+                                <th>Sales</th>
+                                <th>Purchases</th>
+                                <th>GST Collected</th>
+                                <th>Received</th>
+                                <th>Paid</th>
+                                <th>Profit/Loss</th>
+                            </tr>
+                        </thead>
+                        <tbody id="monthlyReportBody">
+                            <tr><td colspan="7" class="text-center">No data available</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn btn-secondary" onclick="printReport()">🖨️ Print Report</button>
+                    <button class="btn btn-secondary" onclick="downloadReportCSV()">📥 Download CSV</button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Ambika Billing System. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="../assets/js/app.js"></script>
+    <script>
+        let reportSales = [];
+        let reportPurchases = [];
+
+        async function loadReportData() {
+            try {
+                const [salesRes, purchasesRes] = await Promise.all([
+                    fetch('http://localhost:5000/api/sales'),
+                    fetch('http://localhost:5000/api/purchases')
+                ]);
+
+                reportSales = salesRes.ok ? await salesRes.json() : [];
+                reportPurchases = purchasesRes.ok ? await purchasesRes.json() : [];
+            } catch (error) {
+                reportSales = JSON.parse(localStorage.getItem('reportSales') || '[]');
+                reportPurchases = JSON.parse(localStorage.getItem('reportPurchases') || '[]');
+            }
+
+            localStorage.setItem('reportSales', JSON.stringify(reportSales));
+            localStorage.setItem('reportPurchases', JSON.stringify(reportPurchases));
+            generateReport();
+        }
+
+        function generateReport() {
+            const selectedMonth = document.getElementById('reportMonth').value;
+            const selectedYear = document.getElementById('reportYear').value;
+            
+            generateYearlyReport();
+            generateMonthlyReport(selectedMonth, selectedYear);
+        }
+
+        function generateYearlyReport() {
+            const tbody = document.getElementById('yearlyReportBody');
+            const years = {};
+            
+            reportSales.forEach(sale => {
+                const date = new Date(sale.createdAt || sale.date || Date.now());
+                const year = date.getFullYear();
+                if (!years[year]) {
+                    years[year] = { sales: 0, purchases: 0, gst: 0, paid: 0, received: 0 };
+                }
+                const saleAmount = Number(sale.totalAmount ?? sale.amount ?? 0);
+                const gstAmount = (saleAmount * Number(sale.gst || 0)) / 100;
+                years[year].sales += saleAmount;
+                years[year].gst += gstAmount;
+                years[year].received += saleAmount;
+            });
+            
+            reportPurchases.forEach(purchase => {
+                const date = new Date(purchase.createdAt || purchase.date || Date.now());
+                const year = date.getFullYear();
+                if (!years[year]) {
+                    years[year] = { sales: 0, purchases: 0, gst: 0, paid: 0, received: 0 };
+                }
+                const purchaseAmount = Number(purchase.totalAmount ?? purchase.amount ?? 0);
+                years[year].purchases += purchaseAmount;
+                years[year].paid += purchaseAmount;
+            });
+            
+            let html = '';
+            const sortedYears = Object.keys(years).sort().reverse();
+            
+            if (sortedYears.length === 0) {
+                html = '<tr><td colspan="7" class="text-center">No data available</td></tr>';
+            } else {
+                sortedYears.forEach(year => {
+                    const data = years[year];
+                    const profit = data.sales - data.purchases;
+                    html += `
+                        <tr>
+                            <td>${year}</td>
+                            <td style="text-align: right;">${formatCurrency(data.sales)}</td>
+                            <td style="text-align: right;">${formatCurrency(data.purchases)}</td>
+                            <td style="text-align: right;">${formatCurrency(data.gst)}</td>
+                            <td style="text-align: right;">${formatCurrency(data.received)}</td>
+                            <td style="text-align: right;">${formatCurrency(data.paid)}</td>
+                            <td style="text-align: right; color: ${profit >= 0 ? '#2ecc71' : '#e74c3c'}; font-weight: bold;">${formatCurrency(profit)}</td>
+                        </tr>
+                    `;
+                });
+            }
+            
+            tbody.innerHTML = html;
+        }
+
+        function generateMonthlyReport(month, year) {
+            const tbody = document.getElementById('monthlyReportBody');
+            const months = {};
+            
+            if (month && year) {
+                const filteredSales = reportSales.filter(s => {
+                    const d = new Date(s.createdAt || s.date || Date.now());
+                    return (d.getMonth() + 1) == month && d.getFullYear() == year;
+                });
+                
+                const filteredPurchases = reportPurchases.filter(p => {
+                    const d = new Date(p.createdAt || p.date || Date.now());
+                    return (d.getMonth() + 1) == month && d.getFullYear() == year;
+                });
+                
+                let sales = 0, purchases = 0, gst = 0, paid = 0, received = 0;
+                
+                filteredSales.forEach(s => {
+                    const saleAmount = Number(s.totalAmount ?? s.amount ?? 0);
+                    const gstAmount = (saleAmount * Number(s.gst || 0)) / 100;
+                    sales += saleAmount;
+                    gst += gstAmount;
+                    received += saleAmount;
+                });
+                
+                filteredPurchases.forEach(p => {
+                    const purchaseAmount = Number(p.totalAmount ?? p.amount ?? 0);
+                    purchases += purchaseAmount;
+                    paid += purchaseAmount;
+                });
+                
+                const profit = sales - purchases;
+                let html = `
+                    <tr>
+                        <td>${getMonthName(month)} ${year}</td>
+                        <td style="text-align: right;">${formatCurrency(sales)}</td>
+                        <td style="text-align: right;">${formatCurrency(purchases)}</td>
+                        <td style="text-align: right;">${formatCurrency(gst)}</td>
+                        <td style="text-align: right;">${formatCurrency(received)}</td>
+                        <td style="text-align: right;">${formatCurrency(paid)}</td>
+                        <td style="text-align: right; color: ${profit >= 0 ? '#2ecc71' : '#e74c3c'}; font-weight: bold;">${formatCurrency(profit)}</td>
+                    </tr>
+                `;
+                tbody.innerHTML = html;
+            } else {
+                reportSales.forEach(sale => {
+                    const date = new Date(sale.createdAt || sale.date || Date.now());
+                    const m = date.getMonth() + 1;
+                    const y = date.getFullYear();
+                    const key = `${y}-${m}`;
+                    
+                    if (!months[key]) {
+                        months[key] = { month: m, year: y, sales: 0, purchases: 0, gst: 0, paid: 0, received: 0 };
+                    }
+                    const saleAmount = Number(sale.totalAmount ?? sale.amount ?? 0);
+                    const gstAmount = (saleAmount * Number(sale.gst || 0)) / 100;
+                    months[key].sales += saleAmount;
+                    months[key].gst += gstAmount;
+                    months[key].received += saleAmount;
+                });
+                
+                reportPurchases.forEach(purchase => {
+                    const date = new Date(purchase.createdAt || purchase.date || Date.now());
+                    const m = date.getMonth() + 1;
+                    const y = date.getFullYear();
+                    const key = `${y}-${m}`;
+                    
+                    if (!months[key]) {
+                        months[key] = { month: m, year: y, sales: 0, purchases: 0, gst: 0, paid: 0, received: 0 };
+                    }
+                    const purchaseAmount = Number(purchase.totalAmount ?? purchase.amount ?? 0);
+                    months[key].purchases += purchaseAmount;
+                    months[key].paid += purchaseAmount;
+                });
+                
+                let html = '';
+                const sortedMonths = Object.keys(months).sort().reverse();
+                
+                if (sortedMonths.length === 0) {
+                    html = '<tr><td colspan="7" class="text-center">No data available</td></tr>';
+                } else {
+                    sortedMonths.forEach(key => {
+                        const data = months[key];
+                        const profit = data.sales - data.purchases;
+                        html += `
+                            <tr>
+                                <td>${getMonthName(data.month)} ${data.year}</td>
+                                <td style="text-align: right;">${formatCurrency(data.sales)}</td>
+                                <td style="text-align: right;">${formatCurrency(data.purchases)}</td>
+                                <td style="text-align: right;">${formatCurrency(data.gst)}</td>
+                                <td style="text-align: right;">${formatCurrency(data.received)}</td>
+                                <td style="text-align: right;">${formatCurrency(data.paid)}</td>
+                                <td style="text-align: right; color: ${profit >= 0 ? '#2ecc71' : '#e74c3c'}; font-weight: bold;">${formatCurrency(profit)}</td>
+                            </tr>
+                        `;
+                    });
+                }
+                tbody.innerHTML = html;
+            }
+        }
+
+        function printReport() {
+            window.print();
+        }
+
+        function downloadReportCSV() {
+            let csv = 'Type,Month/Year,Sales,Purchases,GST,Received,Paid,Profit\n';
+            
+            // Yearly data
+            const years = {};
+            reportSales.forEach(sale => {
+                const year = new Date(sale.createdAt || sale.date || Date.now()).getFullYear();
+                if (!years[year]) years[year] = { sales: 0, purchases: 0, gst: 0, paid: 0, received: 0 };
+                const saleAmount = Number(sale.totalAmount ?? sale.amount ?? 0);
+                const gst = (saleAmount * Number(sale.gst || 0)) / 100;
+                years[year].sales += saleAmount;
+                years[year].gst += gst;
+                years[year].received += saleAmount;
+            });
+            
+            reportPurchases.forEach(purchase => {
+                const year = new Date(purchase.createdAt || purchase.date || Date.now()).getFullYear();
+                if (!years[year]) years[year] = { sales: 0, purchases: 0, gst: 0, paid: 0, received: 0 };
+                const purchaseAmount = Number(purchase.totalAmount ?? purchase.amount ?? 0);
+                years[year].purchases += purchaseAmount;
+                years[year].paid += purchaseAmount;
+            });
+            
+            Object.keys(years).sort().forEach(year => {
+                const data = years[year];
+                const profit = data.sales - data.purchases;
+                csv += `Yearly,${year},${data.sales},${data.purchases},${data.gst},${data.received},${data.paid},${profit}\n`;
+            });
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${(JSON.parse(localStorage.getItem('company')) || {}).name || 'Ambika'}_reports_${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            
+            showAlert('✅ Report downloaded successfully!', 'success');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            populateYearSelect('reportYear');
+            loadReportData();
+        });
+    </script>
+    <script src="../assets/js/auth.js"></script>
+
+<!-- Profile Modal -->
+<div id="profileModal" class="profile-modal">
+  <div class="profile-modal-box">
+    <button class="modal-close" onclick="closeProfile()">×</button>
+
+    <h2>👤 My Profile</h2>
+
+    <div style="text-align:center; margin-bottom:15px;">
+      <img
+        id="profilePreview"
+        src=""
+        alt="Profile Preview"
+        style="
+          width:90px;
+          height:90px;
+          border-radius:50%;
+          object-fit:cover;
+          border:2px solid #2563eb;
+          margin-bottom:10px;
+        "
+      >
+    </div>
+
+    <label>Profile Image</label>
+    <input
+      type="file"
+      id="profileImageInput"
+      accept="image/*"
+      onchange="uploadProfileImage(event)"
+    >
+
+    <label>Name</label>
+    <input type="text" id="profileNameInput">
+
+    <label>Email</label>
+    <input type="email" id="profileEmailInput">
+
+    <label>Mobile Number</label>
+    <input type="text" id="profilePhoneInput" disabled>
+
+    <label>Location</label>
+    <input type="text" id="profileLocationInput">
+
+    <button onclick="saveProfile()" class="btn btn-primary">
+      Save Changes
+    </button>
+  </div>
+</div>
+
+<!-- Settings Modal -->
+<div id="settingsModal" class="profile-modal">
+  <div class="profile-modal-box">
+    <button class="modal-close" onclick="closeSettings()">×</button>
+
+    <h2>⚙️ Settings</h2>
+
+    <label>Theme</label>
+    <select id="themeSelect">
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+    </select>
+
+    <br><br>
+
+    <label>Language</label>
+    <select id="languageSelect">
+      <option value="en">English</option>
+      <option value="hi">Hindi</option>
+    </select>
+
+    <br><br>
+
+    <label>
+      <input type="checkbox" id="notificationToggle">
+      Enable Notifications
+    </label>
+    <label>Company Name</label>
+<input type="text" id="companyNameInput" placeholder="Company Name">
+
+<label>GST Number</label>
+<input type="text" id="companyGSTInput" placeholder="GST Number">
+<label>Phone Number</label>
+<input type="text" id="companyPhoneInput" placeholder="Company Phone Number">
+
+
+<label>Address</label>
+<textarea id="companyAddressInput" placeholder="Company Address"></textarea>
+
+<br><br>
+
+<button onclick="clearAllData()" class="btn btn-danger">
+  Clear All Data
+</button>
+
+<br><br>
+
+<p id="settingsMessage"
+   style="
+      display:none;
+      text-align:center;
+      font-weight:600;
+      margin-bottom:10px;
+   ">
+</p>
+
+<button onclick="saveSettings()" class="btn btn-primary">
+  Save Settings
+</button>
+
+</body>
+</html>

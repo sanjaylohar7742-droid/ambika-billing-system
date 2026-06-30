@@ -1,0 +1,26 @@
+<!-- Navigation Bar - Include this on all pages -->
+<header class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-brand">
+            <h1>📊 Ambika</h1>
+            <p>Billing & Inventory System</p>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+            <li><a href="sales.html" class="nav-link">Sales</a></li>
+            <li><a href="purchases.html" class="nav-link">Purchases</a></li>
+            <li><a href="bills.html" class="nav-link">Bills</a></li>
+            <li><a href="reports.html" class="nav-link">Reports</a></li>
+            <li><a href="settings.html" class="nav-link">Settings</a></li>
+        </ul>
+    </div>
+</header>
+
+<script>
+// Highlight current page
+document.querySelectorAll('.nav-link').forEach(link => {
+    if (link.href === window.location.href) {
+        link.classList.add('active');
+    }
+});
+</script>

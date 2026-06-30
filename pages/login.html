@@ -1,0 +1,57 @@
+\<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - Ambika</title>
+    <link rel="stylesheet" href="../assets/css/login.css">
+</head>
+<body>
+
+    <div class="login-container">
+
+        <h1>🏪 Ambika Billing System</h1>
+
+        <input
+            type="text"
+            id="phone"
+            placeholder="Enter Mobile Number"
+            required
+        >
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter Password"
+            required
+        >
+
+        <button onclick="loginUser()">
+            Login
+        </button>
+
+        <p id="message"></p>
+
+        <hr style="margin:20px 0;">
+
+        <p style="text-align:center;">
+            New User?
+        </p>
+
+        <a
+            href="./signup.html"
+            style="
+                display:block;
+                text-align:center;
+                color:#007bff;
+                text-decoration:none;
+                font-weight:bold;
+            "
+        >
+            Create New Account
+        </a>
+
+    </div>
+
+    <script src="../assets/js/login.js"></script>
+
+</body>
+</html>

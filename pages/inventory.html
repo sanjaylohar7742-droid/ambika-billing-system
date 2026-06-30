@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Inventory - Ambika</title>
+  <link rel="stylesheet" href="../assets/css/inventory.css">
+</head>
+<body>
+
+<div class="login-container">
+  <h1>📦 Inventory</h1>
+
+  <input type="text" id="name" placeholder="Product Name">
+  <input type="text" id="category" placeholder="Category">
+  <input type="number" id="price" placeholder="Price">
+  <input type="number" id="stock" placeholder="Stock">
+
+  <button onclick="addProduct()">Add Product</button>
+
+  <p id="message"></p>
+   <input
+    type="text"
+    id="search"
+    placeholder="🔍 Search Product..."
+    onkeyup="searchProducts()"
+>
+  <h3>Product List</h3>
+  <div id="productList"></div>
+
+  <br>
+  <a href="dashboard.html">Back to Dashboard</a>
+</div>
+
+<script src="../assets/js/inventory.js"></script>
+
+<!-- Profile Modal -->
+<div id="profileModal" class="profile-modal">
+  <div class="profile-modal-box">
+    <button class="modal-close" onclick="closeProfile()">×</button>
+
+    <h2>👤 My Profile</h2>
+
+    <div style="text-align:center; margin-bottom:15px;">
+      <img
+        id="profilePreview"
+        src=""
+        alt="Profile Preview"
+        style="
+          width:90px;
+          height:90px;
+          border-radius:50%;
+          object-fit:cover;
+          border:2px solid #2563eb;
+          margin-bottom:10px;
+        "
+      >
+    </div>
+
+    <label>Profile Image</label>
+    <input
+      type="file"
+      id="profileImageInput"
+      accept="image/*"
+      onchange="uploadProfileImage(event)"
+    >
+
+    <label>Name</label>
+    <input type="text" id="profileNameInput">
+
+    <label>Email</label>
+    <input type="email" id="profileEmailInput">
+
+    <label>Mobile Number</label>
+    <input type="text" id="profilePhoneInput" disabled>
+
+    <label>Location</label>
+    <input type="text" id="profileLocationInput">
+
+    <button onclick="saveProfile()" class="btn btn-primary">
+      Save Changes
+    </button>
+  </div>
+</div>
+
+<!-- Settings Modal -->
+<div id="settingsModal" class="profile-modal">
+  <div class="profile-modal-box">
+    <button class="modal-close" onclick="closeSettings()">×</button>
+
+    <h2>⚙️ Settings</h2>
+
+    <label>Theme</label>
+    <select id="themeSelect">
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+    </select>
+
+    <br><br>
+
+    <label>Language</label>
+    <select id="languageSelect">
+      <option value="en">English</option>
+      <option value="hi">Hindi</option>
+    </select>
+
+    <br><br>
+
+    <label>
+      <input type="checkbox" id="notificationToggle">
+      Enable Notifications
+    </label>
+    <label>Company Name</label>
+<input type="text" id="companyNameInput" placeholder="Company Name">
+
+<label>GST Number</label>
+<input type="text" id="companyGSTInput" placeholder="GST Number">
+<label>Phone Number</label>
+<input type="text" id="companyPhoneInput" placeholder="Company Phone Number">
+
+
+<label>Address</label>
+<textarea id="companyAddressInput" placeholder="Company Address"></textarea>
+
+<br><br>
+
+<button onclick="clearAllData()" class="btn btn-danger">
+  Clear All Data
+</button>
+
+<br><br>
+
+<p id="settingsMessage"
+   style="
+      display:none;
+      text-align:center;
+      font-weight:600;
+      margin-bottom:10px;
+   ">
+</p>
+
+<button onclick="saveSettings()" class="btn btn-primary">
+  Save Settings
+</button>
+
+</body>
+</html>

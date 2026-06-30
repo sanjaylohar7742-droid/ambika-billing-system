@@ -1,0 +1,154 @@
+{
+  "company": {
+    "name": "Ambika",
+    "gst": "27AABCT1234A1ZZ",
+    "address": "Mumbai, Maharashtra, India",
+    "phone": "+91-98765-43210",
+    "email": "contact@ambika.com"
+  },
+  "sales": [
+    {
+      "id": 1718704200000,
+      "date": "2024-06-15",
+      "customer": "Rajesh Kumar",
+      "description": "Office Supplies - Stationery",
+      "quantity": 10,
+      "rate": 500,
+      "gst": 18,
+      "amount": 5900
+    },
+    {
+      "id": 1718704300000,
+      "date": "2024-06-16",
+      "customer": "Priya Industries",
+      "description": "Raw Materials - Fabric",
+      "quantity": 50,
+      "rate": 1200,
+      "gst": 18,
+      "amount": 70800
+    },
+    {
+      "id": 1718704400000,
+      "date": "2024-06-17",
+      "customer": "Local Store",
+      "description": "Electronics - Power Supplies",
+      "quantity": 5,
+      "rate": 2500,
+      "gst": 18,
+      "amount": 14750
+    },
+    {
+      "id": 1718791200000,
+      "date": "2024-06-18",
+      "customer": "ABC Corporation",
+      "description": "Software License",
+      "quantity": 2,
+      "rate": 15000,
+      "gst": 18,
+      "amount": 35400
+    },
+    {
+      "id": 1718877600000,
+      "date": "2024-06-19",
+      "customer": "Sharma Retail",
+      "description": "Bulk Items - Textiles",
+      "quantity": 100,
+      "rate": 800,
+      "gst": 18,
+      "amount": 94400
+    }
+  ],
+  "purchases": [
+    {
+      "id": 1718704250000,
+      "date": "2024-06-14",
+      "supplier": "Wholesale Inc",
+      "description": "Raw Materials",
+      "quantity": 25,
+      "rate": 600,
+      "gst": 18,
+      "amount": 17700
+    },
+    {
+      "id": 1718704350000,
+      "date": "2024-06-15",
+      "supplier": "Global Traders",
+      "description": "Components",
+      "quantity": 40,
+      "rate": 850,
+      "gst": 18,
+      "amount": 40180
+    },
+    {
+      "id": 1718704450000,
+      "date": "2024-06-17",
+      "supplier": "Import Co",
+      "description": "Finished Goods",
+      "quantity": 15,
+      "rate": 3000,
+      "gst": 18,
+      "amount": 53100
+    },
+    {
+      "id": 1718791250000,
+      "date": "2024-06-18",
+      "supplier": "Local Supplier",
+      "description": "Packaging Materials",
+      "quantity": 200,
+      "rate": 50,
+      "gst": 18,
+      "amount": 11800
+    }
+  ],
+  "bills": [
+    {
+      "id": 1718704500000,
+      "billNo": "BILL-0001",
+      "date": "2024-06-15",
+      "items": [
+        {
+          "description": "Office Supplies - Stationery",
+          "quantity": 10,
+          "rate": 500,
+          "gst": 18,
+          "amount": 5900,
+          "customer": "Rajesh Kumar"
+        }
+      ],
+      "notes": "Thank you for your business"
+    },
+    {
+      "id": 1718704600000,
+      "billNo": "BILL-0002",
+      "date": "2024-06-16",
+      "items": [
+        {
+          "description": "Raw Materials - Fabric",
+          "quantity": 50,
+          "rate": 1200,
+          "gst": 18,
+          "amount": 70800,
+          "customer": "Priya Industries"
+        }
+      ],
+      "notes": "Payment terms: Net 30"
+    },
+    {
+      "id": 1718704700000,
+      "billNo": "BILL-0003",
+      "date": "2024-06-17",
+      "items": [
+        {
+          "description": "Electronics - Power Supplies",
+          "quantity": 5,
+          "rate": 2500,
+          "gst": 18,
+          "amount": 14750,
+          "customer": "Local Store"
+        }
+      ],
+      "notes": "1 year warranty included"
+    }
+  ],
+  "payments": []
+}

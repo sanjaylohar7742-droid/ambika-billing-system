@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Start Ambika app",
+			"type": "shell",
+			"command": "cd \"c:\\Users\\pursh\\OneDrive\\Desktop\\youtube web deve\\web ambika\\server\" && npm install && npm start",
+			"args": [],
+			"isBackground": true,
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}

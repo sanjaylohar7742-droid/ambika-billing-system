@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambika - Billing & Inventory Management</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        .hero {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .hero-large-btn {
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .hero-large-btn-primary {
+            background-color: white;
+            color: #2c3e50;
+            border: 2px solid white;
+        }
+
+        .hero-large-btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-large-btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .hero-large-btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 40px 0;
+        }
+
+        .quick-link {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            color: #2c3e50;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .quick-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(52, 152, 219, 0.3);
+            color: #3498db;
+        }
+
+        .quick-link-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .quick-link-text {
+            font-weight: 600;
+        }
+
+        .info-section {
+            background-color: #f5f7fa;
+            padding: 40px;
+            border-radius: 10px;
+            margin: 40px 0;
+        }
+
+        .info-section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-item {
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+
+        .feature-item strong {
+            color: #2c3e50;
+        }
+
+        .feature-item p {
+            font-size: 13px;
+            color: #7f8c8d;
+            margin: 5px 0 0 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Navigation -->
+        <header class="navbar">
+            <div class="navbar-container">
+                <div class="navbar-brand">
+                    <h1>📊 Ambika</h1>
+                    <p>Billing & Inventory System</p>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#" class="nav-link active">Home</a></li>
+                    <li><a href="pages/dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li><a href="pages/sales.html" class="nav-link">Sales</a></li>
+                    <li><a href="pages/purchases.html" class="nav-link">Purchases</a></li>
+                    <li><a href="pages/bills.html" class="nav-link">Bills</a></li>
+                    <li><a href="pages/reports.html" class="nav-link">Reports</a></li>
+                    <li><a href="pages/settings.html" class="nav-link">Settings</a></li>
+                </ul>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-container">
+                <!-- Hero Section -->
+                <div class="hero">
+                    <h1>🎉 Welcome to Ambika</h1>
+                    <p>Professional Billing & Inventory Management System</p>
+                    <div class="cta-buttons">
+                        <a href="pages/dashboard.html" class="hero-large-btn hero-large-btn-primary">🚀 Get Started</a>
+                        <a href="#features" class="hero-large-btn hero-large-btn-secondary">📚 Learn More</a>
+                    </div>
+                </div>
+
+                <!-- Quick Access Links -->
+                <h2 class="page-title" style="text-align: center; margin-top: 40px;">⚡ Quick Access</h2>
+                <div class="quick-links">
+                    <a href="pages/dashboard.html" class="quick-link">
+                        <div class="quick-link-icon">📈</div>
+                        <div class="quick-link-text">Dashboard</div>
+                    </a>
+                    <a href="pages/sales.html" class="quick-link">
+                        <div class="quick-link-icon">💰</div>
+                        <div class="quick-link-text">Record Sales</div>
+                    </a>
+                    <a href="pages/purchases.html" class="quick-link">
+                        <div class="quick-link-icon">🛒</div>
+                        <div class="quick-link-text">Record Purchases</div>
+                    </a>
+                    <a href="pages/bills.html" class="quick-link">
+                        <div class="quick-link-icon">📄</div>
+                        <div class="quick-link-text">Create Bills</div>
+                    </a>
+                    <a href="pages/reports.html" class="quick-link">
+                        <div class="quick-link-icon">📊</div>
+                        <div class="quick-link-text">View Reports</div>
+                    </a>
+                    <a href="pages/settings.html" class="quick-link">
+                        <div class="quick-link-icon">⚙️</div>
+                        <div class="quick-link-text">Settings</div>
+                    </a>
+                </div>
+
+                <!-- Features Section -->
+                <div id="features" class="info-section">
+                    <h2>✨ Key Features</h2>
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <strong>📋 Sales Tracking</strong>
+                            <p>Record all sales transactions with customer details, items, quantities, rates, and automatic GST calculations.</p>
+                        </div>
+                        <div class="feature-item">
+                            <strong>📦 Purchase Management</strong>
+                            <p>Track all purchases from suppliers with complete details. Maintain supplier information and transaction history.</p>
+                        </div>
+                        <div class="feature-item">
+                            <strong>📄 Professional Bills</strong>
+                            <p>Generate professional invoices with your company details, customer information, and GST breakdown.</p>
+                        </div>
+                        <div class="feature-item">
+                            <strong>💹 GST Tracking</strong>
+                            <p>Automatic GST calculation on all transactions. Track GST collected and paid separately.</p>
+                        </div>
+                        <div class="feature-item">
+                            <strong>📊 Financial Reports</strong>
+                            <p>Yearly and monthly summaries. View sales, purchases, profit/loss, and GST information at a glance.</p>
+                        </div>
+                        <div class="feature-item">
+                            <strong>💾 Data Backup</strong>
+                            <p>Export your data as JSON or CSV. Import data to restore from backups. Never lose your data!</p>
+                        </div>
+                        <div class="feature-item">
+                            <strong>📱 Mobile Friendly</strong>
+                            <p>Works perfectly on all devices - desktop, tablet, and mobile. Responsive design for easy access anywhere.</p>
+                        </div>
+                        <div class="feature-item">
+                            <strong>🔒 Offline Ready</strong>
+                            <p>All data stored locally on your device. Works without internet. Your data is completely private.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- How to Use -->
+                <div class="info-section">
+                    <h2>🎯 How to Use</h2>
+                    <ol style="font-size: 14px; line-height: 2;">
+                        <li><strong>Set Up:</strong> Go to Settings and enter your company name, GST number, address, phone, and email.</li>
+                        <li><strong>Record Sales:</strong> In Sales page, add each sale transaction with customer details and amounts.</li>
+                        <li><strong>Record Purchases:</strong> In Purchases page, track all purchases from suppliers.</li>
+                        <li><strong>Create Bills:</strong> In Bills page, generate professional invoices from your sales.</li>
+                        <li><strong>View Reports:</strong> Check yearly and monthly summaries to understand your business performance.</li>
+                        <li><strong>Backup Data:</strong> Regular export your data (JSON or CSV) to keep it safe.</li>
+                    </ol>
+                </div>
+
+                <!-- FAQ Section -->
+                <div class="info-section">
+                    <h2>❓ FAQ</h2>
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <strong>Is my data safe?</strong>
+                            <p>Yes! All data is stored locally on your device. Nothing is sent to any server. You have complete control and privacy.</p>
+                        </div>
+                        <div class="feature-item">
+                            <strong>Do I need internet?</strong>
+                            <p>No! The app works completely offline. You don't need internet connection to use it.</p>
+                        </div>
+                        <div class="feature-item">
+                            <strong>Can I use it on multiple devices?</strong>
+                            <p>Yes! Export your data from one device and import it on another. You can use JSON export/import feature.</p>
+                        </div>
+                        <div class="feature-item">
+                            <strong>What if I clear browser cache?</strong>
+                            <p>Your data will be deleted. That's why regular backups (Settings → Export) are important!</p>
+                        </div>
+                        <div class="feature-item">
+                            <strong>Can I customize GST rates?</strong>
+                            <p>Yes! Each transaction can have different GST rates. Specify the rate for each sale/purchase.</p>
+                        </div>
+                        <div class="feature-item">
+                            <strong>Is there a cost?</strong>
+                            <p>No! Ambika is completely free for all users. Use it for any business purpose without any restrictions.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Get Started CTA -->
+                <div style="text-align: center; padding: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; color: white; margin: 40px 0;">
+                    <h2 style="color: white; margin-bottom: 15px;">Ready to Get Started?</h2>
+                    <p style="margin-bottom: 20px; font-size: 16px;">Start managing your billing and inventory in minutes!</p>
+                    <a href="pages/dashboard.html" class="hero-large-btn" style="background-color: white; color: #667eea;">🚀 Go to Dashboard</a>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Ambika Billing System. Designed for small businesses and freelancers. 💼</p>
+        </footer>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+
+    <!-- Old single-page version archived. Now using multi-page architecture in /pages folder -->
+</body>
+</html> 
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <h2>Dashboard</h2>
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <h3>Total Sales</h3>
+                        <p class="number" id="totalSales">₹ 0</p>
+                    </div>
+                    <div class="card">
+                        <h3>Total Purchases</h3>
+                        <p class="number" id="totalPurchases">₹ 0</p>
+                    </div>
+                    <div class="card">
+                        <h3>Total Paid</h3>
+                        <p class="number positive" id="totalPaid">₹ 0</p>
+                    </div>
+                    <div class="card">
+                        <h3>Total Received</h3>
+                        <p class="number positive" id="totalReceived">₹ 0</p>
+                    </div>
+                    <div class="card">
+                        <h3>GST Collected</h3>
+                        <p class="number" id="gstCollected">₹ 0</p>
+                    </div>
+                    <div class="card">
+                        <h3>Net Profit/Loss</h3>
+                        <p class="number" id="netProfit">₹ 0</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3>Monthly Summary</h3>
+                    <div id="monthlySummary" class="summary-table">
+                        <p>No data available</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sell Section -->
+            <section id="sell" class="section">
+                <h2>Record Sale</h2>
+                <form id="sellForm" class="form-container">
+                    <div class="form-group">
+                        <label for="sellDate">Date:</label>
+                        <input type="date" id="sellDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sellCustomer">Customer Name:</label>
+                        <input type="text" id="sellCustomer" placeholder="Customer name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sellDescription">Item Description:</label>
+                        <input type="text" id="sellDescription" placeholder="What did you sell?" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sellQuantity">Quantity:</label>
+                        <input type="number" id="sellQuantity" placeholder="1" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sellRate">Rate (per unit):</label>
+                        <input type="number" id="sellRate" placeholder="0.00" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sellGST">GST %:</label>
+                        <input type="number" id="sellGST" placeholder="18" value="18" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sellAmount">Total Amount: <span id="sellTotalAmount">₹ 0</span></label>
+                        <input type="hidden" id="sellAmount">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Sale</button>
+                </form>
+
+                <h3>Recent Sales</h3>
+                <div id="sellList" class="transactions-list">
+                    <p>No sales recorded yet</p>
+                </div>
+            </section>
+
+            <!-- Buy Section -->
+            <section id="buy" class="section">
+                <h2>Record Purchase</h2>
+                <form id="buyForm" class="form-container">
+                    <div class="form-group">
+                        <label for="buyDate">Date:</label>
+                        <input type="date" id="buyDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="buySupplier">Supplier Name:</label>
+                        <input type="text" id="buySupplier" placeholder="Supplier name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="buyDescription">Item Description:</label>
+                        <input type="text" id="buyDescription" placeholder="What did you buy?" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="buyQuantity">Quantity:</label>
+                        <input type="number" id="buyQuantity" placeholder="1" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="buyRate">Rate (per unit):</label>
+                        <input type="number" id="buyRate" placeholder="0.00" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="buyGST">GST %:</label>
+                        <input type="number" id="buyGST" placeholder="18" value="18" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="buyAmount">Total Amount: <span id="buyTotalAmount">₹ 0</span></label>
+                        <input type="hidden" id="buyAmount">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Purchase</button>
+                </form>
+
+                <h3>Recent Purchases</h3>
+                <div id="buyList" class="transactions-list">
+                    <p>No purchases recorded yet</p>
+                </div>
+            </section>
+
+            <!-- Bills Section -->
+            <section id="bills" class="section">
+                <h2>Bills Management</h2>
+                <div class="bills-controls">
+                    <button class="btn btn-secondary" onclick="createNewBill()">Create New Bill</button>
+                    <button class="btn btn-secondary" onclick="downloadAllBills()">Download All Bills</button>
+                </div>
+
+                <div id="billsList" class="bills-list">
+                    <p>No bills created yet</p>
+                </div>
+            </section>
+
+            <!-- Reports Section -->
+            <section id="reports" class="section">
+                <h2>Financial Reports</h2>
+                
+                <div class="report-filters">
+                    <select id="reportMonth">
+                        <option value="">All Months</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    <select id="reportYear">
+                        <option value="">All Years</option>
+                    </select>
+                    <button class="btn btn-secondary" onclick="generateReport()">Generate Report</button>
+                </div>
+
+                <div id="reportContent" class="report-container">
+                    <h3>Yearly Summary</h3>
+                    <table id="yearlyReport" class="report-table">
+                        <thead>
+                            <tr>
+                                <th>Year</th>
+                                <th>Total Sales</th>
+                                <th>Total Purchases</th>
+                                <th>GST Collected</th>
+                                <th>Total Paid</th>
+                                <th>Total Received</th>
+                                <th>Net Profit</th>
+                            </tr>
+                        </thead>
+                        <tbody id="yearlyReportBody">
+                            <tr><td colspan="7" style="text-align: center;">No data</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Monthly Summary</h3>
+                    <table id="monthlyReport" class="report-table">
+                        <thead>
+                            <tr>
+                                <th>Month</th>
+                                <th>Sales</th>
+                                <th>Purchases</th>
+                                <th>GST Collected</th>
+                                <th>Paid</th>
+                                <th>Received</th>
+                                <th>Profit/Loss</th>
+                            </tr>
+                        </thead>
+                        <tbody id="monthlyReportBody">
+                            <tr><td colspan="7" style="text-align: center;">No data</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="section">
+                <h2>Settings</h2>
+                <form id="settingsForm" class="form-container">
+                    <h3>Company Information</h3>
+                    <div class="form-group">
+                        <label for="companyName">Company Name:</label>
+                        <input type="text" id="companyName" value="Ambika" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="companyGST">GST Number (Optional):</label>
+                        <input type="text" id="companyGST" placeholder="27AABCT1234A1ZZ">
+                    </div>
+                    <div class="form-group">
+                        <label for="companyAddress">Address:</label>
+                        <textarea id="companyAddress" placeholder="Company address for bills"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="companyPhone">Phone:</label>
+                        <input type="tel" id="companyPhone" placeholder="+91 XXXX-XXXX-XX">
+                    </div>
+                    <div class="form-group">
+                        <label for="companyEmail">Email:</label>
+                        <input type="email" id="companyEmail" placeholder="company@example.com">
+                    </div>
+
+                    <h3>Data Management</h3>
+                    <div class="form-group">
+                        <label>Import Data:</label>
+                        <input type="file" id="importFile" accept=".json,.csv">
+                        <button type="button" class="btn btn-secondary" onclick="importData()">Import</button>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-secondary" onclick="exportData()">Export Data (JSON)</button>
+                        <button type="button" class="btn btn-secondary" onclick="exportCSV()">Export CSV</button>
+                    </div>
+
+                    <h3>Danger Zone</h3>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-danger" onclick="clearAllData()">Clear All Data</button>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Save Settings</button>
+                </form>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Bill Modal -->
+    <div id="billModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBillModal()">&times;</span>
+            <div id="billPreview" class="bill-preview"></div>
+            <div class="modal-buttons">
+                <button class="btn btn-primary" onclick="printBill()">Print Bill</button>
+                <button class="btn btn-secondary" onclick="downloadBillPDF()">Download PDF</button>
+                <button class="btn btn-secondary" onclick="saveBill()">Save Bill</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

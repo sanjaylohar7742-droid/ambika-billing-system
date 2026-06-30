@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GST Tax Invoice</title>
+ <style>
+@page { size: A4; margin: 10mm; }
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+.invoice {
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: white;
+  border: 0;
+  overflow: hidden;
+}
+
+@media print {
+  body {
+    margin: 0;
+    background: white;
+  }
+
+  .invoice {
+    width: 100%;
+    min-height: 100%;
+    box-shadow: none;
+    border: none;
+  }
+}
+
+img {
+  width: 65px !important;
+}
+
+h2 {
+  text-align: center;
+  margin: 4px 0;
+  font-size: 18px;
+}
+
+.buyer-info-row {
+  display: flex;
+  gap: 8px;
+}
+
+.buyer-info-col {
+  flex: 1;
+  min-width: 0;
+}
+
+.buyer-info-address {
+  margin-top: 4px;
+}
+
+.buyer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.buyer-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.buyer-field.full {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 480px) {
+  .buyer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #000;
+  margin: 0;
+  table-layout: fixed;
+}
+
+td, th {
+  border: 1px solid #000 !important;
+  padding: 3px 4px;
+  font-size: 8.5px;
+  line-height: 1.1;
+  vertical-align: top;
+}
+
+.invoice-table-gap {
+  margin-top: 3px;
+}
+
+.invoice {
+  padding: 8mm;
+}
+
+.right { text-align: right; }
+.center { text-align: center; }
+.bold { font-weight: bold; }
+
+.print-btn {
+  margin: 15px auto;
+  display: block;
+  padding: 10px 25px;
+}
+
+@media print {
+  .print-btn { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="invoice">
+
+  <!-- Logo -->
+  <div style="text-align:center; margin-bottom:6px;">
+    <img src="../assets/images/logo.png"
+         width="100"
+         alt="Ambika Logo">
+  </div>
+
+  <h2 style="margin:2px 0; font-size:16px;">Tax Invoice (ORIGINAL FOR RECIPIENT)</h2>
+
+  
+
+  <table>
+    <tr>
+      <td width="50%" style="vertical-align: top;">
+        <div style="font-size:9px; line-height:1.2;">
+          <b id="companyName">AMBIKA ELECTRICALS</b><br>
+          <span id="companyAddress">Sukher, Udaipur</span><br>
+          GSTIN/UIN: <span id="companyGST">08AEGPL9315M1Z1</span><br>
+          Phone: <span id="companyPhone">-</span><br>
+          State Name: Rajasthan, Code: 08
+        </div>
+      </td>
+      <td width="25%" style="vertical-align: top;">
+        <div style="font-size:9px; line-height:1.2;">
+          <b>Invoice No.</b><br><span id="invoiceNo"></span>
+        </div>
+      </td>
+      <td width="25%" style="vertical-align: top;">
+        <div style="font-size:9px; line-height:1.2;">
+          <b>Dated</b><br><span id="invoiceDate"></span>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Delivery Note</td>
+      <td>Mode/Terms of Payment</td>
+      <td>Other References</td>
+    </tr>
+    <tr>
+      <td>Reference No.</td>
+      <td>Dispatch Doc No.<br><b>ONLINE</b></td>
+      <td>Motor Vehicle No.<br><b>BY HAND</b></td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+        <div style="font-size:9px; line-height:1.2;">
+          <div class="buyer-info-row">
+            <div class="buyer-info-col">
+              <b>Buyer (Bill to)</b><br>
+              <span id="buyerShopName">-</span><br>
+              <span id="customerName">-</span>
+            </div>
+            <div class="buyer-info-col">
+              GSTIN/UIN: <span id="buyerGst">-</span><br>
+              Phone: <span id="buyerPhone">-</span><br>
+              State Name: Rajasthan, Code: 08
+            </div>
+          </div>
+          <div class="buyer-info-address">
+            Address: <span id="buyerAddress">-</span>
+          </div>
+        </div>
+      </td>
+      <td colspan="2" style="vertical-align: top;">Terms of Delivery</td>
+    </tr>
+  </table>
+
+  <table class="invoice-table-gap">
+    <tr>
+      <th>Sl No.</th>
+      <th>Description of Goods</th>
+      <th>HSN/SAC</th>
+      <th>Quantity</th>
+      <th>Rate</th>
+      <th>per</th>
+      <th>Amount</th>
+    </tr>
+    <tr>
+      <td class="center">1</td>
+      <td class="bold" id="productName"></td>
+      <td class="center">8467</td>
+      <td class="center" id="quantity"></td>
+      <td class="right" id="rate"></td>
+      <td class="center">Nos</td>
+      <td class="right" id="taxableValue"></td>
+    </tr>
+    <tr><td colspan="6" class="right bold">CGST 9%</td><td class="right" id="cgst"></td></tr>
+    <tr><td colspan="6" class="right bold">SGST 9%</td><td class="right" id="sgst"></td></tr>
+    <tr><td colspan="6" class="right bold">Total</td><td class="right bold" id="grandTotal"></td></tr>
+  </table>
+
+  <table class="invoice-table-gap">
+    <tr>
+      <td><b>Amount Chargeable (in words)</b><br><span id="amountWords"></span></td>
+    </tr>
+  </table>
+
+  <table class="invoice-table-gap">
+    <tr>
+      <th>HSN/SAC</th>
+      <th>Taxable Value</th>
+      <th>CGST Rate</th>
+      <th>CGST Amount</th>
+      <th>SGST Rate</th>
+      <th>SGST Amount</th>
+      <th>Total Tax Amount</th>
+    </tr>
+    <tr>
+      <td class="center">8467</td>
+      <td class="right" id="taxable2"></td>
+      <td class="center">9%</td>
+      <td class="right" id="cgst2"></td>
+      <td class="center">9%</td>
+      <td class="right" id="sgst2"></td>
+      <td class="right" id="taxTotal"></td>
+    </tr>
+  </table>
+
+  <table class="invoice-table-gap">
+    <tr>
+      <td width="55%" style="vertical-align:top;">
+        <b>Declaration</b><br>
+        We declare that this invoice shows the actual price of the goods described and all particulars are true and correct.
+      </td>
+      <td class="right" style="vertical-align:top; padding-top:10px;">
+        for <b>AMBIKA ELECTRICALS</b><br><br><br>
+        Authorised Signatory
+      </td>
+    </tr>
+  </table>
+<div style="margin-top:4px;">
+  <p class="center" style="margin:2px 0; font-size:9px;">SUBJECT TO UDAIPUR JURISDICTION</p>
+  <p class="center" style="margin:2px 0; font-size:9px;">This is a Computer Generated Invoice</p>
+ </div>
+</div>
+
+<div id="buyerDetailsModal" style="position:fixed; inset:0; background:rgba(15,23,42,0.55); display:flex; align-items:center; justify-content:center; z-index:9999;">
+  <div style="background:#fff; width:min(420px, 92vw); padding:20px; border-radius:12px; box-shadow:0 10px 30px rgba(15,23,42,0.2);">
+    <h3 style="margin-top:0;">Buyer Details</h3>
+    <p style="margin-top:0; color:#64748b; font-size:13px;">All fields are optional. Leave blank if not needed.</p>
+
+    <div class="buyer-grid">
+      <div class="buyer-field">
+        <label style="display:block; margin:8px 0 4px; font-weight:600;">Shop Name</label>
+        <input id="buyerShopNameInput" type="text" placeholder="Shop Name" style="width:100%; padding:8px; box-sizing:border-box; margin-bottom:0;">
+      </div>
+
+      <div class="buyer-field">
+        <label style="display:block; margin:8px 0 4px; font-weight:600;">Phone Number</label>
+        <input id="buyerPhoneInput" type="text" placeholder="Phone Number" style="width:100%; padding:8px; box-sizing:border-box; margin-bottom:0;">
+      </div>
+
+      <div class="buyer-field full">
+        <label style="display:block; margin:8px 0 4px; font-weight:600;">GST Number</label>
+        <input id="buyerGSTInput" type="text" placeholder="GST Number" style="width:100%; padding:8px; box-sizing:border-box; margin-bottom:0;">
+      </div>
+
+      <div class="buyer-field full">
+        <label style="display:block; margin:8px 0 4px; font-weight:600;">Address</label>
+        <textarea id="buyerAddressInput" rows="3" placeholder="Address" style="width:100%; padding:8px; box-sizing:border-box; margin-bottom:0;"></textarea>
+      </div>
+    </div>
+
+    <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:12px;">
+      <button class="print-btn" onclick="generateBill()" style="margin:0;">Generate Bill</button>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:14px;">
+  <button class="print-btn" onclick="downloadPDF()" style="margin:0;">📄 Download PDF</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+  const sale = JSON.parse(localStorage.getItem("selectedSale"));
+
+  const company =
+    JSON.parse(localStorage.getItem("invoiceCompany")) ||
+    JSON.parse(localStorage.getItem("company")) ||
+    {};
+
+  function money(n) {
+    return Number(n || 0).toFixed(2);
+  }
+
+  function generateBill() {
+    const buyerDetails = {
+      shopName: document.getElementById("buyerShopNameInput")?.value || "",
+      gst: document.getElementById("buyerGSTInput")?.value || "",
+      phone: document.getElementById("buyerPhoneInput")?.value || "",
+      address: document.getElementById("buyerAddressInput")?.value || "",
+    };
+
+    localStorage.setItem("invoiceBuyer", JSON.stringify(buyerDetails));
+
+    if (sale) {
+      const updatedSale = { ...sale, buyer: buyerDetails };
+      localStorage.setItem("selectedSale", JSON.stringify(updatedSale));
+    }
+
+    localStorage.setItem("showBuyerForm", "false");
+    document.getElementById("buyerDetailsModal").style.display = "none";
+    populateInvoice();
+  }
+
+  function returnToBills() {
+    localStorage.setItem("showBuyerForm", "false");
+    window.location.href = "bills.html";
+  }
+
+  function printInvoice() {
+    window.print();
+  }
+
+  function saveBill() {
+    const currentSale = JSON.parse(localStorage.getItem("selectedSale")) || sale;
+    const buyerDetails = JSON.parse(localStorage.getItem("invoiceBuyer")) || {};
+
+    if (!currentSale) {
+      alert("No bill data found.");
+      return;
+    }
+
+    const savedBills = JSON.parse(localStorage.getItem("savedBills") || "[]");
+
+    savedBills.unshift({
+      ...currentSale,
+      buyer: buyerDetails,
+      savedAt: new Date().toISOString(),
+    });
+
+    localStorage.setItem("savedBills", JSON.stringify(savedBills));
+    alert("✅ Bill saved successfully");
+  }
+
+  function downloadPDF() {
+    const element = document.querySelector(".invoice");
+
+    const options = {
+      margin: [0, 0, 0, 0],
+      filename: `Invoice_${Date.now()}.pdf`,
+      image: { type: "jpeg", quality: 1 },
+      html2canvas: {
+        scale: 4,
+        useCORS: true,
+        backgroundColor: '#ffffff',
+        logging: false,
+        width: 794,
+        height: 1122,
+        scrollX: 0,
+        scrollY: 0
+      },
+      jsPDF: {
+        unit: 'mm',
+        format: 'a4',
+        orientation: 'portrait'
+      },
+      pagebreak: { mode: ['css', 'legacy'] }
+    };
+
+    html2pdf().set(options).from(element).save();
+    setTimeout(() => {
+      returnToBills();
+    }, 1200);
+  }
+
+  function populateInvoice() {
+    if (!sale) return;
+
+    const buyer = JSON.parse(localStorage.getItem("invoiceBuyer")) || {};
+
+    document.getElementById("companyName").innerText = company.name || "AMBIKA ELECTRICALS";
+    document.getElementById("companyGST").innerText = company.gst || "08AEGPL9315M1Z1";
+    document.getElementById("companyPhone").innerText = company.phone || "-";
+    document.getElementById("companyAddress").innerText = company.address || "Sukher, Udaipur";
+
+    const total = Number(sale.totalAmount);
+    const taxable = total / 1.18;
+    const cgst = taxable * 0.09;
+    const sgst = taxable * 0.09;
+    const qty = Number(sale.quantity);
+    const rate = taxable / qty;
+
+    const invoiceNo = "AMB/" + new Date().getFullYear() + "/" + Math.floor(Math.random() * 10000);
+
+    document.getElementById("invoiceNo").innerText = invoiceNo;
+    document.getElementById("invoiceDate").innerText = new Date(sale.createdAt).toLocaleDateString();
+
+    document.getElementById("buyerShopName").innerText = buyer.shopName || "-";
+    document.getElementById("customerName").innerText = sale.customerName || "Customer";
+    document.getElementById("buyerGst").innerText = buyer.gst || sale.customerGST || "-";
+    document.getElementById("buyerPhone").innerText = buyer.phone || "-";
+    document.getElementById("buyerAddress").innerText = buyer.address || "-";
+
+    document.getElementById("productName").innerText = sale.product?.name || "Product";
+    document.getElementById("quantity").innerText = qty + " Nos";
+    document.getElementById("rate").innerText = money(rate);
+    document.getElementById("taxableValue").innerText = money(taxable);
+    document.getElementById("cgst").innerText = money(cgst);
+    document.getElementById("sgst").innerText = money(sgst);
+    document.getElementById("grandTotal").innerText = "Rs. " + money(total);
+
+    document.getElementById("taxable2").innerText = money(taxable);
+    document.getElementById("cgst2").innerText = money(cgst);
+    document.getElementById("sgst2").innerText = money(sgst);
+    document.getElementById("taxTotal").innerText = money(cgst + sgst);
+    document.getElementById("amountWords").innerText = "INR " + money(total) + " Only";
+  }
+
+  window.generateBill = generateBill;
+  window.printInvoice = printInvoice;
+  window.downloadPDF = downloadPDF;
+  window.returnToBills = returnToBills;
+
+  window.onafterprint = function() {
+    setTimeout(() => {
+      returnToBills();
+    }, 300);
+  };
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const buyer = JSON.parse(localStorage.getItem("invoiceBuyer")) || {};
+    document.getElementById("buyerShopNameInput").value = buyer.shopName || "";
+    document.getElementById("buyerGSTInput").value = buyer.gst || "";
+    document.getElementById("buyerPhoneInput").value = buyer.phone || "";
+    document.getElementById("buyerAddressInput").value = buyer.address || "";
+
+    const shouldShowBuyerForm = localStorage.getItem("showBuyerForm") === "true";
+    document.getElementById("buyerDetailsModal").style.display = shouldShowBuyerForm ? "flex" : "none";
+    populateInvoice();
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</body>
+</html>
