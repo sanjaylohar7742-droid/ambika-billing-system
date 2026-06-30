@@ -1,6 +1,6 @@
 const express = require("express");
 const Sale = require("../models/Sale");
-const Purchase = require("../models/Purchase");
+const Purchase = require("../models/purchase");
 const Product = require("../models/Product");
 
 const router = express.Router();
