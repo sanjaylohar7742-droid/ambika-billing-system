@@ -2,7 +2,7 @@ async function loadDashboardStats() {
   let data = null;
 
   try {
-    const res = await fetch("http://localhost:5000/api/dashboard/stats");
+    const res = await fetch("https://ambika-billing-system.onrender.com/api/dashboard/stats");
     if (res.ok) {
       data = await res.json();
     }

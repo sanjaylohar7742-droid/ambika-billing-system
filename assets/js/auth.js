@@ -186,7 +186,7 @@ async function uploadProfileImage(event) {
   formData.append("image", file);
 
   try {
-    const response = await fetch("http://localhost:5000/api/upload/profile-image", {
+    const response = await fetch("https://ambika-billing-system.onrender.com/api/sales", {
       method: "POST",
       body: formData,
     });
@@ -209,7 +209,7 @@ async function uploadProfileImage(event) {
     user.profileImage = imageUrl;
     localStorage.setItem("user", JSON.stringify(user));
 
-    await fetch("http://localhost:5000/api/auth/profile", {
+    await fetch("https://ambika-billing-system.onrender.com/api/auth/profile", {
   method: "PUT",
   headers: {
     "Content-Type": "application/json",
@@ -288,7 +288,7 @@ async function saveProfile() {
   };
 
   try {
-    const response = await fetch("http://localhost:5000/api/auth/profile", {
+    const response = await fetch("https://ambika-billing-system.onrender.com/api/auth/profile", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -405,7 +405,7 @@ async function openNotifications() {
   ];
 
   try {
-    const response = await fetch("http://localhost:5000/api/products");
+    const response = await fetch("https://ambika-billing-system.onrender.com/api/products");
     if (response.ok) {
       const products = await response.json();
       const lowStockProducts = products.filter((p) => Number(p.stock) < 5);
@@ -548,7 +548,7 @@ async function clearAllData() {
     const preservedToken = localStorage.getItem("token");
 
     try {
-      await fetch("http://localhost:5000/api/dashboard/reset", {
+      await fetch("https://ambika-billing-system.onrender.com/api/dashboard/reset", {
         method: "DELETE",
       });
     } catch (error) {

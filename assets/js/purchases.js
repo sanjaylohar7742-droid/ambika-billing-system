@@ -19,7 +19,7 @@ async function createBackendPurchase(e) {
   const gst = Number(document.getElementById("buyGST").value);
   const totalAmount = Number(document.getElementById("buyAmount").value);
 
-  const productRes = await fetch("http://localhost:5000/api/products");
+  const productRes = await fetch("https://ambika-billing-system.onrender.com/api/products");
   const products = await productRes.json();
 
   let product = products.find(
@@ -27,7 +27,7 @@ async function createBackendPurchase(e) {
   );
 
   if (!product) {
-    const newProductRes = await fetch("http://localhost:5000/api/products", {
+    const newProductRes = await fetch("https://ambika-billing-system.onrender.com/api/products", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -42,7 +42,7 @@ async function createBackendPurchase(e) {
     product = newProductData.product;
   }
 
-  const res = await fetch("http://localhost:5000/api/purchases", {
+  const res = await fetch("https://ambika-billing-system.onrender.com/api/purchases", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -67,7 +67,7 @@ async function createBackendPurchase(e) {
 async function loadPurchasesList() {
   const container = document.getElementById("buyList");
 
-  const res = await fetch("http://localhost:5000/api/purchases");
+  const res = await fetch("https://ambika-billing-system.onrender.com/api/purchases");
   const purchases = await res.json();
 
   if (!purchases || purchases.length === 0) {

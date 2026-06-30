@@ -7,7 +7,7 @@ async function addProduct() {
   const message = document.getElementById("message");
 
   try {
-    const res = await fetch("http://localhost:5000/api/products", {
+    const res = await fetch("https://ambika-billing-system.onrender.com/api/products", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +35,7 @@ async function addProduct() {
 
 // Load Products
 async function loadProducts() {
-  const res = await fetch("http://localhost:5000/api/products");
+  const res = await fetch("https://ambika-billing-system.onrender.com/api/products");
   const products = await res.json();
 
   document.getElementById("productList").innerHTML = products
@@ -70,7 +70,7 @@ async function deleteProduct(id) {
 
   if (!ok) return;
 
-  await fetch(`http://localhost:5000/api/products/${id}`, {
+  await fetch(`https://ambika-billing-system.onrender.com/api/products/${id}`, {
     method: "DELETE",
   });
 
@@ -107,7 +107,7 @@ async function editProduct(id, name, category, price, stock) {
 
     if (!newName) return;
 
-    await fetch(`http://localhost:5000/api/products/${id}`, {
+    await fetch(`https://ambika-billing-system.onrender.com/api/products/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",

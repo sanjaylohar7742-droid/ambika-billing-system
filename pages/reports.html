@@ -136,8 +136,8 @@
         async function loadReportData() {
             try {
                 const [salesRes, purchasesRes] = await Promise.all([
-                    fetch('http://localhost:5000/api/sales'),
-                    fetch('http://localhost:5000/api/purchases')
+                    fetch('https://ambika-billing-system.onrender.com/api/sales'),
+                    fetch('https://ambika-billing-system.onrender.com/api/purchases')
                 ]);
 
                 reportSales = salesRes.ok ? await salesRes.json() : [];

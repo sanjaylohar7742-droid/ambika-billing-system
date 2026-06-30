@@ -1,5 +1,5 @@
 async function loadProducts() {
-  const res = await fetch("http://localhost:5000/api/products");
+  const res = await fetch("https://ambika-billing-system.onrender.com/api/products");
   const products = await res.json();
 
   const select = document.getElementById("productSelect");
@@ -22,7 +22,7 @@ async function createSale() {
   const quantity = document.getElementById("quantity").value;
   const message = document.getElementById("message");
 
-  const res = await fetch("http://localhost:5000/api/sales", {
+  const res = await fetch("https://ambika-billing-system.onrender.com/api/sales", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -50,7 +50,7 @@ async function createSale() {
 }
 // Load sales and display them
 async function loadSales() {
-  const res = await fetch("http://localhost:5000/api/sales");
+  const res = await fetch("https://ambika-billing-system.onrender.com/api/sales");
   const sales = await res.json();
 
   const salesList = document.getElementById("sellList");

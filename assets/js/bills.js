@@ -2,7 +2,7 @@ async function loadBills() {
   const billsList = document.getElementById("billsList");
 
   try {
-    const res = await fetch("http://localhost:5000/api/sales");
+    const res = await fetch("https://ambika-billing-system.onrender.com/api/sales");
     const sales = await res.json();
 
     if (!sales || sales.length === 0) {

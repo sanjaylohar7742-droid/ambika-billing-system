@@ -1,6 +1,6 @@
 // Load Products
 async function loadProducts() {
-  const res = await fetch("http://localhost:5000/api/products");
+  const res = await fetch("https://ambika-billing-system.onrender.com/api/products");
   const products = await res.json();
 
   const select = document.getElementById("productSelect");
@@ -25,7 +25,7 @@ async function createPurchase() {
 
   const message = document.getElementById("message");
 
-  const res = await fetch("http://localhost:5000/api/purchases", {
+  const res = await fetch("https://ambika-billing-system.onrender.com/api/purchases", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -54,7 +54,7 @@ async function createPurchase() {
 
 // Load Purchases
 async function loadPurchases() {
-  const res = await fetch("http://localhost:5000/api/purchases");
+  const res = await fetch("https://ambika-billing-system.onrender.com/api/purchases");
   const purchases = await res.json();
 
   const purchaseList = document.getElementById("purchaseList");
