@@ -1,5 +1,5 @@
 const express = require("express");
-const Sale = require("../models/Sale");
+const Sale = require("../models/sale");
 const Purchase = require("../models/purchase");
 const Product = require("../models/Product");
 
